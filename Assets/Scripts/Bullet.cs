@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private int hp;
+    public int Hp { get { return hp; } set { if (value <= 0) Destroy(this.gameObject); else hp = value; } }
     Rigidbody2D rigid;
     Vector2 velocity;
 
@@ -21,8 +23,16 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        rigid.velocity = Reflact(velocity, collision.contacts[0].normal);
-        transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(velocity.x, velocity.y) * Mathf.Rad2Deg, transform.forward);
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            rigid.velocity = Reflact(velocity, collision.contacts[0].normal);
+            transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(velocity.x, velocity.y) * Mathf.Rad2Deg, transform.forward);
+        }
+        else if (collision.gameObject.CompareTag("Corner"))
+        {
+            rigid.velocity = Reflact(velocity, collision.contacts[0].normal);
+            transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(velocity.x, velocity.y) * Mathf.Rad2Deg - 90, transform.forward);
+        }
     }
 
     private Vector2 Reflact(Vector2 dir, Vector2 normalVector)
