@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     {
         Move();
         Aim();
-        Shot();
+        Shoot();
     }
 
     private void Move()
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         ray.transform.rotation = Quaternion.AngleAxis(-bulletAngle, Vector3.forward);
     }
 
-    private void Shot()
+    private void Shoot()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {

@@ -25,19 +25,13 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            rigid.velocity = Reflact(velocity, collision.contacts[0].normal);
+            rigid.velocity = Vector2.Reflect(velocity, collision.contacts[0].normal);
             transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(velocity.x, velocity.y) * Mathf.Rad2Deg, transform.forward);
         }
         else if (collision.gameObject.CompareTag("Corner"))
         {
-            rigid.velocity = Reflact(velocity, collision.contacts[0].normal);
+            rigid.velocity = Vector2.Reflect(velocity, collision.contacts[0].normal);
             transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(velocity.x, velocity.y) * Mathf.Rad2Deg - 90, transform.forward);
         }
-    }
-
-    private Vector2 Reflact(Vector2 dir, Vector2 normalVector)
-    {
-        Vector2 reflectDir = Vector2.Reflect(dir, -normalVector);
-        return reflectDir;
     }
 }
