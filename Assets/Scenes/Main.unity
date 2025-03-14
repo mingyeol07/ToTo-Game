@@ -268,9 +268,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf06982e8c06a54b8cc519134b14f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderCirclePrefab: {fileID: 0}
-  moveCircleTransform: {fileID: 0}
-  stopCircleTransform: {fileID: 0}
+  btn_spawn100: {fileID: 0}
+  btn_spawn1000: {fileID: 0}
+  btn_spawn10000: {fileID: 0}
+  btn_colliderCircle: {fileID: 0}
+  btn_overlapCircle: {fileID: 0}
+  btn_aabbCircle: {fileID: 0}
+  btn_raycastCircle: {fileID: 0}
+  btn_spatialPartitionCircle: {fileID: 0}
+  btn_clear: {fileID: 0}
+  txt_spawnCount: {fileID: 0}
+  txt_collisionCount: {fileID: 0}
+  colliderCirclePrefab: {fileID: 8053815980264855609, guid: a7175583de1f1104eaa5754d30da0509, type: 3}
+  overlapCirclePrefab: {fileID: 0}
+  aabbCirclePrefab: {fileID: 0}
+  raycastCirclePrefab: {fileID: 0}
+  spatialPartitioningCirclePrefab: {fileID: 0}
+  moveCircleTransform: {fileID: 784612447}
+  stopCircleTransform: {fileID: 583397874}
 --- !u!1 &164010032
 GameObject:
   m_ObjectHideFlags: 0
