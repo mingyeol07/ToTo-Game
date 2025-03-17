@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CircleTransform : MonoBehaviour
 {
-    private List<GameObject> circles = new List<GameObject>();
+    public List<GameObject> circles = new List<GameObject>();
 
     public void SpawnCircle(GameObject circle)
     {

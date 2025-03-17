@@ -7,13 +7,15 @@ using UnityEngine;
 
 public class Circle : MonoBehaviour
 {
-    private float speed;
+    private float speed = 10;
     private Rigidbody2D rigid;
 
     private bool isRigidMove;
     private bool isTransMove;
 
     private Vector3 spawnPos;
+
+    [SerializeField] protected LayerMask mask;
 
     private void Awake()
     {
@@ -53,6 +55,6 @@ public class Circle : MonoBehaviour
 
     public void SetSpeed(float speed)
     {
-
+        this.speed = speed;
     }
 }
