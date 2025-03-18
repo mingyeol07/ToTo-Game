@@ -7,9 +7,11 @@ public class CircleTransform : MonoBehaviour
 {
     public List<GameObject> circles = new List<GameObject>();
 
-    public void SpawnCircle(GameObject circle)
+    public void SpawnCircle(GameObject circle, float speed)
     {
-        circles.Add(Instantiate(circle, transform));
+        var go = Instantiate(circle, transform);
+        go.GetComponent<Circle>().SetSpeed(speed);
+        circles.Add(go);
     }
 
     public void SetSpeedCircles(float speed)
@@ -27,21 +29,5 @@ public class CircleTransform : MonoBehaviour
             Destroy(circles[i]);
         }
         circles.Clear();
-    }
-
-    public void TransMove()
-    {
-        for (int i = 0; i < circles.Count; i++)
-        {
-            circles[i].GetComponent<Circle>().TransMove();
-        }
-    }
-
-    public void RigidMove()
-    {
-        for (int i = 0; i < circles.Count; i++)
-        {
-            circles[i].GetComponent<Circle>().RigidMove();
-        }
     }
 }

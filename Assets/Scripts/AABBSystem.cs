@@ -3,22 +3,23 @@ using UnityEngine;
 
 public class AABBSystem : MonoBehaviour
 {
-    private List<GameObject> circles = new();
-    private HashSet<(GameObject, GameObject)> collidedPairs = new(); // 이미 충돌한 객체 쌍 저장
+    private HashSet<(GameObject, Transform)> collidedPairs = new(); // 이미 충돌한 객체 쌍 저장
 
-    private void Update()
-    {
-        for (int i = 0; i < circles.Count; i++)
+    [SerializeField] private CircleTransform circleTransform;
+    [SerializeField] private Transform[] stopCircles;
+
+
+    public void CheckAABB() {
+
+        for (int i = 0; i < circleTransform.circles.Count; i++)
         {
-            for (int j = i + 1; j < circles.Count; j++) // 중복 검사 방지
+            for (int j = i + 1; j < stopCircles.Length; j++) // 중복 검사 방지
             {
-                if (circles[i].layer == circles[j].layer) continue;
+                var pair = (circleTransform.circles[i], stopCircles[j]);
 
-                var pair = (circles[i], circles[j]);
-
-                if (!collidedPairs.Contains(pair) && IsCollision(circles[i].transform.position, circles[j].transform.position))
+                if (!collidedPairs.Contains(pair) && IsCollision(circleTransform.circles[i].transform.position, stopCircles[j].position))
                 {
-                    CircleSpawner.instance.CollisionCheck();
+                    stopCircles[j].GetComponent<StopCircle>().OnCollistion();
                     collidedPairs.Add(pair); // 충돌한 객체 쌍 저장
                 }
             }
@@ -29,15 +30,5 @@ public class AABBSystem : MonoBehaviour
     {
         float distance = Vector2.Distance(pos1, pos2);
         return distance < 1;
-    }
-
-    public void SetCircle(GameObject circle)
-    {
-        circles.Add(circle);
-    }
-
-    public void ResetCollisions()
-    {
-        collidedPairs.Clear(); // 충돌 기록 초기화
     }
 }

@@ -10,24 +10,22 @@ public class CircleSpawner : MonoBehaviour
     public static CircleSpawner instance;
 
     [Header("Count")]
+    [SerializeField] private Button btn_spawn1;
+    [SerializeField] private Button btn_spawn10;
     [SerializeField] private Button btn_spawn100;
-    [SerializeField] private Button btn_spawn1000;
-    [SerializeField] private Button btn_spawn10000;
 
     [Header("Buttons")]
+    [SerializeField] private StopCircle[] stopCircles;
     [SerializeField] private Button btn_colliderCircle;
     [SerializeField] private Button btn_overlapCircle;
     [SerializeField] private Button btn_aabbCircle;
     [SerializeField] private Button btn_raycastCircle;
-    //[SerializeField] private Button btn_spatialPartitionCircle;
     [SerializeField] private Button btn_clear;
-    [SerializeField] private Button btn_rigidStart;
-    [SerializeField] private Button btn_transStart;
 
     [Header("Speed")]
+    [SerializeField] private Button btn_speed1;
     [SerializeField] private Button btn_speed10;
     [SerializeField] private Button btn_speed100;
-    [SerializeField] private Button btn_speed1000;
 
     [Header("Text")]
     [SerializeField] private TMP_Text txt_spawnCount;
@@ -36,42 +34,74 @@ public class CircleSpawner : MonoBehaviour
     private int collisionCount;
 
     [Header("Circles")]
-    [SerializeField] private GameObject colliderCirclePrefab;
-    [SerializeField] private GameObject overlapCirclePrefab;
-    [SerializeField] private GameObject aabbCirclePrefab;
-    [SerializeField] private GameObject raycastCirclePrefab;
+    [SerializeField] private GameObject circlePrefab;
     //[SerializeField] private GameObject spatialPartitioningCirclePrefab;
 
     [Space(10)]
-    [SerializeField] private CircleTransform circleTransform1;
+    [SerializeField] private CircleTransform circleTransform;
 
     private GameObject curPrefab;
 
     [SerializeField] private AABBSystem aabb;
+    private bool isAABB;
+
+    private float speed;
 
     private void Awake()
     {
         instance = this;
 
-        btn_spawn100.onClick.AddListener(() => { Spawn(curPrefab, 10); });
-        btn_spawn1000.onClick.AddListener(() => { Spawn(curPrefab, 100); });
-        btn_spawn10000.onClick.AddListener(() => { Spawn(curPrefab, 1000); });
+        btn_spawn1.onClick.AddListener(() => { Spawn(circlePrefab, 1); });
+        btn_spawn10.onClick.AddListener(() => { Spawn(circlePrefab, 10); });
+        btn_spawn100.onClick.AddListener(() => { Spawn(circlePrefab, 100); });
 
-        btn_colliderCircle.onClick.AddListener(() => { curPrefab = colliderCirclePrefab; });
-        btn_raycastCircle.onClick.AddListener(() => { curPrefab = raycastCirclePrefab; });
-        btn_overlapCircle.onClick.AddListener(() => { curPrefab = overlapCirclePrefab; });
-        btn_aabbCircle.onClick.AddListener(() => { curPrefab = aabbCirclePrefab; });
+        btn_colliderCircle.onClick.AddListener(() =>
+        {
+            for (int i = 0; i < stopCircles.Length; i++)
+            {
+                stopCircles[i].SetCollider();
+            }
+        });
+        btn_raycastCircle.onClick.AddListener(() =>
+        {
+            for (int i = 0; i < stopCircles.Length; i++)
+            {
+                stopCircles[i].SetRaycast();
+            }
+        });
+        btn_overlapCircle.onClick.AddListener(() =>
+        {
+            for (int i = 0; i < stopCircles.Length; i++)
+            {
+                stopCircles[i].SetOverlap();
+            }
+        });
+        btn_aabbCircle.onClick.AddListener(() =>
+        {
+            isAABB = !isAABB;
+        });
 
-        btn_clear.onClick.AddListener(() => { circleTransform1.Clear(); circleCount = 0; collisionCount = 0; });
+        btn_clear.onClick.AddListener(() => 
+        { 
+            circleTransform.Clear();
+            circleCount = 0; 
+            collisionCount = 0;
+            txt_spawnCount.text = circleCount.ToString();
+            txt_collisionCount.text = collisionCount.ToString();
+        });
 
-        btn_rigidStart.onClick.AddListener(() => { circleTransform1.RigidMove();  });
-        btn_transStart.onClick.AddListener(() => { circleTransform1.TransMove();  });
-
-        btn_speed10.onClick.AddListener(() => { circleTransform1.SetSpeedCircles(10); });
-        btn_speed100.onClick.AddListener(() => { circleTransform1.SetSpeedCircles(100); });
-        btn_speed1000.onClick.AddListener(() => { circleTransform1.SetSpeedCircles(1000); });
+        btn_speed1.onClick.AddListener(() => { speed = 10; });
+        btn_speed10.onClick.AddListener(() => { speed  = 100; });
+        btn_speed100.onClick.AddListener(() => { speed = 1000; });
 
 
+    }
+    private void Update()
+    {
+        if (isAABB)
+        {
+            aabb.CheckAABB();
+        }
     }
 
     private void Spawn(GameObject prefab, int count)
@@ -81,10 +111,8 @@ public class CircleSpawner : MonoBehaviour
 
         for (int i =0; i < count; i ++)
         {
-            circleTransform1.SpawnCircle(prefab);
+            circleTransform.SpawnCircle(prefab, speed);
         }
-
-        aabb.SetCircle(prefab);
     }
 
     public void CollisionCheck()
