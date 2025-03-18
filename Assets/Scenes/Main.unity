@@ -420,22 +420,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf06982e8c06a54b8cc519134b14f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btn_spawn1: {fileID: 0}
-  btn_spawn10: {fileID: 0}
-  btn_spawn100: {fileID: 833952424}
+  btn_spawn1: {fileID: 833952424}
+  btn_spawn10: {fileID: 560753199}
+  btn_spawn100: {fileID: 219102850}
   stopCircles: []
   btn_colliderCircle: {fileID: 175997806}
   btn_overlapCircle: {fileID: 1629769242}
   btn_aabbCircle: {fileID: 1539363784}
   btn_raycastCircle: {fileID: 1252018133}
   btn_clear: {fileID: 1792414796}
-  btn_speed1: {fileID: 0}
-  btn_speed10: {fileID: 807311577}
-  btn_speed100: {fileID: 1789254488}
+  btn_speed1: {fileID: 807311577}
+  btn_speed10: {fileID: 1789254488}
+  btn_speed100: {fileID: 194782369}
   txt_spawnCount: {fileID: 847711169}
   txt_collisionCount: {fileID: 1990424780}
-  circlePrefab: {fileID: 0}
-  circleTransform: {fileID: 0}
+  circlePrefab: {fileID: 8053815980264855609, guid: a7175583de1f1104eaa5754d30da0509, type: 3}
+  circleTransform: {fileID: 784612448}
   aabb: {fileID: 148955284}
 --- !u!114 &148955284
 MonoBehaviour:
@@ -449,8 +449,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a95564c91da44c813c2f3ee2f6b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleTransform: {fileID: 0}
-  stopCircles: []
+  circleTransform: {fileID: 784612448}
+  stopCircles:
+  - {fileID: 1187554390}
+  - {fileID: 1406455397}
+  - {fileID: 1756971996}
+  - {fileID: 1369556120}
+  - {fileID: 2033485508}
+  - {fileID: 937527037}
+  - {fileID: 21433559}
+  - {fileID: 1740234885}
+  - {fileID: 1693801933}
+  - {fileID: 365197983}
 --- !u!1 &175997804
 GameObject:
   m_ObjectHideFlags: 0
